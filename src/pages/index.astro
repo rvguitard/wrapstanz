@@ -1,0 +1,484 @@
+---
+const useCases = [
+  { label: 'Airplane', icon: '/assets/wrapstanz/airplane.svg' },
+  { label: 'Hotel room', icon: '/assets/wrapstanz/hotel-room.svg' },
+  { label: 'Coffee table', icon: '/assets/wrapstanz/coffee-table.svg' },
+  { label: 'Work desk', icon: '/assets/wrapstanz/work-desk.svg' },
+  { label: 'Gym', icon: '/assets/wrapstanz/gym.svg' },
+  { label: 'Vacation', icon: '/assets/wrapstanz/vacation.svg' },
+  { label: 'Keynote overflow', icon: '/assets/wrapstanz/keynote.svg' },
+  { label: 'Video calls', icon: '/assets/wrapstanz/video-calls.svg' },
+];
+const scenes = [
+  { label: 'Work from anywhere', image: '/assets/wrapstanz/window-seat.png', featured: true },
+  { label: 'The coffee shop office', image: '/assets/wrapstanz/coffee-shop.png' },
+  { label: 'Movies, made private', image: '/assets/wrapstanz/picnic.png' },
+  { label: 'A screen for two', image: '/assets/wrapstanz/kitchen.png', featured: true },
+  { label: 'Always eye level', image: '/assets/wrapstanz/bathroom.png' },
+  { label: 'Keynotes, up close', image: '/assets/wrapstanz/keynote-event.png' },
+  { label: 'Video calls', image: '/assets/wrapstanz/video-call.png', featured: true },
+  { label: 'Events after hours', image: '/assets/wrapstanz/bar-event.png' },
+  { label: 'Make every view count', image: '/assets/wrapstanz/coloring-airplane.png' },
+];
+const sceneColumns = [
+  [scenes[5], scenes[6]],
+  [{ label: 'Events after hours', image: '/assets/wrapstanz/pint.png' }],
+  [scenes[2], scenes[7]],
+  [scenes[8], scenes[1]],
+  [scenes[4], scenes[0]],
+  [scenes[3]],
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Wrapstanz — a foldable, planet-friendly phone stand that puts your brand on every view." />
+    <title>Wrapstanz — Hold the phone!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header shell">
+      <a class="brand" href="#top" aria-label="Wrapstanz home">
+        <img src="/assets/wrapstanz/logo.png" alt="Wrapstanz" />
+      </a>
+      <button class="contact-link" type="button" data-contact-open>Contact</button>
+    </header>
+
+    <dialog class="contact-dialog t-modal" aria-labelledby="contact-title">
+      <div class="contact-panel">
+        <button class="contact-close" type="button" aria-label="Close contact form" data-contact-close>×</button>
+        <h2 id="contact-title">Let ’em “Stanz” your brand</h2>
+        <form action="mailto:hello@wrapstanz.com" method="post" enctype="text/plain">
+          <label><span>Name*</span><input name="name" autocomplete="name" required /></label>
+          <label><span>Email*</span><input type="email" name="email" autocomplete="email" required /></label>
+          <label><span>Company</span><input name="company" autocomplete="organization" /></label>
+          <label><span>Questions?</span><textarea name="questions" rows="4"></textarea></label>
+          <button type="submit">Contact</button>
+        </form>
+      </div>
+    </dialog>
+
+    <main id="top">
+      <section class="hero">
+        <div class="shell hero-copy">
+          <div class="hero-title-wrap">
+            <h1><img src="/assets/wrapstanz/hold-the-phone.svg" alt="Hold the phone!" /></h1>
+          </div>
+          <div class="intro">
+            <h2>Wrapstanz puts your brand on top of every view.</h2>
+            <div class="hero-description">
+              <p>It’s NEW! It’s a foldable, environmentally friendly phone stand, surrounded by your brand.</p>
+              <p>There are 50-180 million people that regularly watch video on their phone*. That’s a lot of eyeballs viewing your brand and content. Folks are watching phones on planes, coffee tables, in hotel rooms, on desks, while doing their makeup and more!</p>
+              <p>Wrapstanz makes it easy to get their eyes on your brand.</p>
+              <small>*Deloitte Research 2026</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-stage shell" data-comparison style="--position: 62%">
+          <svg class="comparison-outline" aria-hidden="true"><rect /></svg>
+          <div class="comparison-layer comparison-before" aria-hidden="true">
+            <img src="/assets/wrapstanz/before.png" alt="" />
+          </div>
+          <div class="comparison-layer comparison-after" aria-hidden="true">
+            <img src="/assets/wrapstanz/after.png" alt="" />
+          </div>
+          <input class="comparison-range" type="range" min="0" max="100" value="62" aria-label="Before and after comparison slider" />
+          <div class="comparison-divider" aria-hidden="true"><span>↔</span></div>
+        </div>
+
+        <div class="shell works">
+          <strong>It just works anywhere!</strong>
+          <div class="chips">
+            {useCases.map((item) => <span><img src={item.icon} alt="" aria-hidden="true" />{item.label}</span>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="brand-section">
+        <div class="shell">
+          <h2>Get your customers in the fold.<br />Show off your brand with Wrapstanz.</h2>
+        </div>
+        <div class="scene-track" aria-label="Wrapstanz use cases">
+          {[false, true].map((duplicate) => (
+            <div class="scene-sequence" aria-hidden={duplicate ? 'true' : undefined}>
+              {sceneColumns.map((column) => (
+                <div class="scene-column">
+                  {column.map((scene) => (
+                    <article class="scene-card" tabindex="0">
+                      <img src={scene.image} alt="" loading="lazy" />
+                      <p>{scene.label}</p>
+                    </article>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div class="shell brand-notes">
+          <p><strong>Wrap their phone in your brand.</strong> Everything they watch has you talking to them. Create different ones. Make them collectible. Give them a few.</p>
+          <p>Your customers are your brand, let them evangelize what a great company you are while they watch..</p>
+          <p>They’re happy. You’re happy. Everyone is happy.</p>
+          <div class="award"><img src="/assets/wrapstanz/good-design.png" alt="Good Design" /> <span>GOOD GREEN DESIGN<br />2026 AWARD ENTRY</span></div>
+        </div>
+      </section>
+
+      <section class="steps">
+        <div class="shell">
+          <div class="steps-heading">
+            <h2>1, 2, 3…<br />it’s a wrap!</h2>
+            <p><strong>Wrapstanz certainly isn’t rocket surgery.</strong>Often the simplest ideas are the best ideas. Fold up some recycled cardboard, put your logo on it, and let your customers enjoy the show… simple.</p>
+          </div>
+          <div class="step-grid">
+            <article>
+              <span class="number">1</span>
+              <h3>Tear out the window<br />and start to fold.</h3>
+              <div class="line-art fold-one" aria-hidden="true"></div>
+            </article>
+            <article>
+              <span class="number">2</span>
+              <h3>Unfold the easel<br />back stands.</h3>
+              <div class="line-art fold-two" aria-hidden="true"></div>
+            </article>
+            <article>
+              <span class="number">3</span>
+              <h3>Insert phone<br />and enjoy.</h3>
+              <div class="line-art fold-three" aria-hidden="true"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-sections shell" aria-label="About Wrapstanz">
+        <article class="story-row">
+          <div class="story-copy">
+            <h2>Who cares?<br />We do.</h2>
+            <p>We only use FSC Certified cardboard on all of our products. Using only eco-friendly water-based or soy-based inks helps minimize environmental impact by avoiding harmful chemicals and making the finished project easier to recycle.</p>
+            <p>We also donate 1% of all profits to The Nature Conservancy, a dedicated staff, scientists and members advancing effective, lasting conservation in more than 80 countries and territories.</p>
+            <div class="impact-marks" aria-label="Sustainability certifications">
+              <img src="/assets/wrapstanz/fsc.png" alt="FSC certified" />
+              <img src="/assets/wrapstanz/made-in-usa.png" alt="Made in USA" />
+              <img src="/assets/wrapstanz/nature-conservancy.png" alt="The Nature Conservancy" />
+            </div>
+          </div>
+          <div class="story-media-frame"><img class="story-media" src="/assets/wrapstanz/who-cares.png" alt="A child coloring beside a Wrapstanz display on an airplane tray table" loading="lazy" /></div>
+        </article>
+
+        <article class="story-row story-row-reverse">
+          <div class="story-copy">
+            <h2>Drive them to what you want them to see. That’s the vision.</h2>
+            <p>The demo, a keynote or the entire event—a simple printed QR code or URL allows you to direct your viewers to the content you’d like them to see.</p>
+            <a class="story-button" href="mailto:hello@wrapstanz.com">Get in the fold</a>
+          </div>
+          <div class="story-media-frame"><img class="story-media" src="/assets/wrapstanz/drive-them.png" alt="A purple event-branded Wrapstanz display featuring a QR code" loading="lazy" /></div>
+        </article>
+
+        <article class="story-row">
+          <div class="story-copy">
+            <h2>Who the heck are we?</h2>
+            <p>Events are in our blood. We were key leaders in the tech event and startup space, working hundreds of large and small events.</p>
+            <p>We had an idea. We know the business of events isn’t just a good time. It’s about customers, prospects, demos, keynotes, leads, results and metrics. We know that giving a customer a useful small gift leads to brand advocacy. And rewarding a prospect leads to awareness, consideration and possibly brand love. Bingo! Wrapstanz was born!</p>
+            <p>We know there is no more room for landfill, expensive, destructive technology giveaways. Nobody uses them or wants them. Let’s make something they want, will use and is approved by 3% of the world: recycle.</p>
+            <p>This isn’t a premium, this is simple and makes sense. We know it.</p>
+          </div>
+          <div class="story-media-frame"><img class="story-media" src="/assets/wrapstanz/who-we-are.png" alt="A grid of event cards displayed outdoors" loading="lazy" /></div>
+        </article>
+      </section>
+
+      <section class="price-banner">
+        <div class="shell price-grid">
+          <img class="price-media" src="/assets/wrapstanz/best-part.png" alt="A Wrapstanz display on an airplane tray table" loading="lazy" />
+          <div class="price-copy">
+            <h2>The best part? The price.<br />They’re made out of<br />cardboard and ink.</h2>
+            <a href="mailto:hello@wrapstanz.com">Get a quote</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>Patent Pending 2026, Poppy &amp; Sons LLC, Wrapstanz ™2026, Inc. All rights reserved.</p>
+        <a class="brand" href="#top"><img src="/assets/wrapstanz/logo.png" alt="Wrapstanz" /></a>
+      </div>
+    </footer>
+    <script>
+      document.querySelectorAll<HTMLElement>('[data-comparison]').forEach((comparison) => {
+        const range = comparison.querySelector<HTMLInputElement>('.comparison-range');
+        range?.addEventListener('input', () => comparison.style.setProperty('--position', `${range.value}%`));
+      });
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll<HTMLElement>('.scene-track').forEach((track) => {
+        if (reduceMotion) return;
+        const sequence = track.querySelector<HTMLElement>('.scene-sequence');
+        if (!sequence) return;
+        let start = performance.now();
+        const speed = 42;
+        const move = (now: number) => {
+          const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 0;
+          const cycle = sequence.getBoundingClientRect().width + gap;
+          const x = cycle ? ((now - start) / 1000 * speed) % cycle : 0;
+          track.style.transform = `translate3d(${-x}px, 0, 0)`;
+          requestAnimationFrame(move);
+        };
+        requestAnimationFrame(move);
+      });
+
+      const contactDialog = document.querySelector<HTMLDialogElement>('.contact-dialog');
+      const contactOpen = document.querySelector<HTMLButtonElement>('[data-contact-open]');
+      const contactClose = contactDialog?.querySelector<HTMLButtonElement>('[data-contact-close]');
+      const closeMs = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--modal-close-dur')) || 150;
+
+      function openContact() {
+        if (!contactDialog || contactDialog.open) return;
+        contactDialog.classList.remove('is-closing');
+        contactDialog.showModal();
+        document.documentElement.style.overflow = 'hidden';
+        requestAnimationFrame(() => contactDialog.classList.add('is-open'));
+      }
+
+      function closeContact() {
+        if (!contactDialog?.open) return;
+        contactDialog.classList.remove('is-open');
+        contactDialog.classList.add('is-closing');
+        setTimeout(() => {
+          contactDialog.classList.remove('is-closing');
+          contactDialog.close();
+          document.documentElement.style.overflow = '';
+          contactOpen?.focus();
+        }, closeMs);
+      }
+
+      contactOpen?.addEventListener('click', openContact);
+      contactClose?.addEventListener('click', closeContact);
+      contactDialog?.addEventListener('cancel', (event) => { event.preventDefault(); closeContact(); });
+      contactDialog?.addEventListener('click', (event) => { if (event.target === contactDialog) closeContact(); });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --blue: #648cf0;
+    --blue-dark: #173a78;
+    --navy: #142e61;
+    --orange: #ff951f;
+    --cream: #fff5e8;
+    --paper: #fffdf8;
+    --ink: #172b53;
+    --modal-open-dur: 250ms;
+    --modal-close-dur: 150ms;
+    --modal-scale: 0.96;
+    --modal-scale-close: 0.96;
+    --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { box-sizing: border-box; letter-spacing: 0 !important; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; color: var(--ink); background: var(--paper); font-family: 'Asap', sans-serif; }
+  a { color: inherit; }
+  .shell { width: min(1360px, calc(100% - 40px)); margin-inline: auto; }
+  .site-header { position: absolute; z-index: 10; inset: 0 0 auto; height: 84px; display: flex; align-items: center; justify-content: space-between; color: white; }
+  .brand { text-decoration: none; font-size: 22px; font-weight: 700; letter-spacing: -1.2px; }
+  .brand span { font-style: italic; }
+  .brand img { display: block; width: auto; height: 46px; object-fit: contain; }
+  .contact-link { border: 2px dashed rgba(255,255,255,.8); padding: 16px 24px; border-radius: 10px; color: inherit; background: transparent; font: inherit; text-decoration: none; font-size: 20px; font-weight: 700; cursor: pointer; transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+  .contact-link:hover { color: var(--navy); background: white; border-color: white; transform: translateY(-4px); box-shadow: 0 8px 0 rgba(20,46,97,.18); }
+
+  .t-modal {
+    transform-origin: center;
+    transform: scale(var(--modal-scale));
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform var(--modal-open-dur) var(--modal-ease),
+      opacity   var(--modal-open-dur) var(--modal-ease);
+    will-change: transform, opacity;
+  }
+  .t-modal.is-open {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .t-modal.is-closing {
+    transform: scale(var(--modal-scale-close));
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform var(--modal-close-dur) var(--modal-ease),
+      opacity   var(--modal-close-dur) var(--modal-ease);
+  }
+  .contact-dialog { width: min(520px, calc(100% - 52px)); max-width: none; padding: 0; border: 0; overflow: visible; color: var(--navy); background: transparent; }
+  .contact-dialog::backdrop { background: rgba(12, 39, 88, .86); backdrop-filter: blur(4px); }
+  .contact-panel { position: relative; padding: 42px 42px 38px; border-radius: 18px; background: #fff8ec; box-shadow: 0 30px 80px rgba(8, 25, 58, .35); }
+  .contact-panel::before { content: ''; position: absolute; inset: -18px; border: 4px dashed white; border-radius: 26px; pointer-events: none; }
+  .contact-panel h2 { margin: 0 24px 30px; text-align: center; font-size: clamp(28px, 4vw, 38px); line-height: 1.1; }
+  .contact-panel form { display: grid; gap: 12px; }
+  .contact-panel label { display: grid; gap: 5px; padding: 13px 18px; border-radius: 10px; background: white; }
+  .contact-panel label span { color: #52627d; font-size: 14px; font-weight: 700; }
+  .contact-panel input, .contact-panel textarea { width: 100%; padding: 0; border: 0; outline: 0; color: var(--navy); background: transparent; font: inherit; resize: vertical; }
+  .contact-panel label:focus-within { outline: 3px solid var(--orange); outline-offset: 1px; }
+  .contact-panel form > button { min-height: 58px; border: 0; border-radius: 10px; color: var(--navy); background: var(--orange); font: inherit; font-size: 18px; font-weight: 800; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+  .contact-panel form > button:hover { background: #ffad45; transform: translateY(-3px); box-shadow: 0 8px 0 rgba(20,46,97,.16); }
+  .contact-close { position: absolute; z-index: 2; top: 12px; right: 14px; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; color: var(--navy); background: transparent; font-size: 28px; line-height: 1; cursor: pointer; }
+  .contact-close:hover { background: rgba(20,46,97,.08); }
+
+  .hero { padding: 140px 0 64px; overflow: hidden; color: white; background: linear-gradient(to bottom, transparent 0 62%, var(--paper) 62% 100%), linear-gradient(180deg, #5ca3ff 0%, #3a90ff 100%); }
+  .hero-copy { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 70px; margin-bottom: 58px; }
+  .hero-title-wrap { position: relative; width: min(100%, 520px); transform: none; }
+  h1 { position: relative; z-index: 1; margin: 0; color: var(--blue-dark); font: 800 clamp(66px, 10vw, 132px)/.78 'Asap', sans-serif; text-transform: uppercase; letter-spacing: -7px; text-shadow: 3px 3px 0 rgba(255,255,255,.1); }
+  h1 img { display: block; width: 100%; height: auto; }
+  .outline-loop { position: absolute; inset: -26px 12% -26px -20px; border: 3px solid var(--orange); border-radius: 44% 56% 49% 51%; transform: rotate(8deg); }
+  .intro { max-width: 520px; }
+  .eyebrow, .section-kicker { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .intro h2 { margin: 0 0 20px; font-size: clamp(25px, 3vw, 40px); line-height: 1.05; letter-spacing: -1.7px; }
+  .intro p:not(.eyebrow) { color: rgba(255,255,255,.9); line-height: 1.5; font-size: inherit; }
+  .hero-description { font-size: clamp(17px, 1.1vw, 20px); }
+  .hero-description p { margin: 0 0 10px; }
+  .hero-description small { display: block; color: rgba(255,255,255,.8); font-size: .7em; }
+
+  .product-stage { position: relative; width: min(1125px, calc(100% - 40px)); height: auto; aspect-ratio: 1125 / 633; margin-top: 0; border-radius: 30px; background: linear-gradient(130deg, #e8e3da, #faf8f4 45%, #d6d1c9); overflow: visible; box-shadow: 0 28px 70px rgba(19,42,86,.25); }
+  .comparison-outline { position: absolute; z-index: 6; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); overflow: visible; pointer-events: none; }
+  .comparison-outline rect { x: 2px; y: 2px; width: calc(100% - 4px); height: calc(100% - 4px); rx: 34px; fill: none; stroke: white; stroke-width: 4px; stroke-dasharray: 10px 10px; vector-effect: non-scaling-stroke; }
+  .desk-shadow { position: absolute; width: 80%; height: 20%; left: 10%; bottom: 5%; border-radius: 50%; background: rgba(56,47,37,.25); filter: blur(30px); }
+  .comparison-layer { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+  .comparison-after { clip-path: inset(0 calc(100% - var(--position)) 0 0); }
+  .comparison-before { filter: none; }
+  .comparison-layer img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .comparison-label { display: none; }
+  .comparison-before .comparison-label { right: 22px; }
+  .comparison-after .comparison-label { left: 22px; background: var(--orange); }
+  .stand { position: absolute; inset: 17% 14% 13%; background: var(--navy); border: 12px solid var(--orange); border-radius: 10px; box-shadow: 0 28px 50px rgba(16,32,62,.35); transform: perspective(900px) rotateX(5deg) rotateZ(-2deg); }
+  .stand-before { background: #d9d9d4; border-color: #b8b8b2; }
+  .stand-logo { position: absolute; left: -10px; top: 50%; transform: translate(-100%,-50%) rotate(-90deg); color: var(--navy); font-size: 20px; font-weight: 700; }
+  .phone { position: absolute; inset: 7% 12%; padding: 8px; border-radius: 23px; background: #0b1021; box-shadow: 0 10px 20px rgba(0,0,0,.4); }
+  .phone-screen { position: relative; height: 100%; border-radius: 16px; overflow: hidden; background: linear-gradient(125deg, #8238cc, #3c7ff0 56%, #f44f91); }
+  .orb { position: absolute; display: block; border-radius: 50%; filter: blur(4px); }
+  .orb-one { width: 45%; aspect-ratio: 1; left: 8%; top: -18%; background: #ff9e37; }
+  .orb-two { width: 44%; aspect-ratio: 1; right: 5%; bottom: -20%; background: #1ad2d5; }
+  .phone-copy { position: absolute; left: 6%; bottom: 9%; font-weight: 600; font-size: clamp(12px, 2vw, 22px); color: white; }
+  .comparison-range { position: absolute; z-index: 5; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+  .comparison-range:focus-visible + .comparison-divider span { outline: 4px solid white; outline-offset: 4px; }
+  .comparison-divider { position: absolute; z-index: 4; top: -26px; bottom: -26px; left: var(--position); width: 5px; background: var(--orange); pointer-events: none; transform: translateX(-50%); }
+  .comparison-divider span { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 50px; aspect-ratio: 1; color: white; background: var(--orange); border: 3px solid white; border-radius: 50%; box-shadow: 0 4px 14px rgba(20,46,97,.25); transform: translate(-50%,-50%); transition: transform .2s ease, box-shadow .2s ease; }
+  .product-stage:hover .comparison-divider span { transform: translate(-50%,-50%) scale(1.22); box-shadow: 0 9px 25px rgba(20,46,97,.34); }
+  .works { position: relative; z-index: 2; padding-top: 58px; color: var(--navy); text-align: center; }
+  .works strong { font-size: clamp(24px, 2vw, 32px); }
+  .chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  .chips span { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 14px 26px; border: 2px dashed var(--blue); border-radius: 999px; color: var(--navy); background: var(--paper); font-size: 16px; font-weight: 700; }
+  .chips span img { width: 20px; height: 20px; object-fit: contain; }
+
+  .brand-section { padding: 90px 0 70px; background: #fff3e7; overflow: hidden; }
+  .brand-section .section-kicker { text-align: center; color: var(--orange); }
+  .brand-section h2 { margin: 0; text-align: center; font-size: clamp(42px, 6vw, 75px); line-height: .98; letter-spacing: -4px; }
+  .scene-track { width: max-content; display: flex; gap: 16px; margin: 54px 0 68px; will-change: transform; }
+  .scene-sequence { display: flex; align-items: center; gap: 16px; }
+  .scene-column { display: flex; flex: none; width: 475px; flex-direction: column; justify-content: center; gap: 16px; }
+  .scene-card { position: relative; width: 100%; overflow: hidden; border-radius: 18px; box-shadow: 0 12px 30px rgba(34,45,73,.12); }
+  .scene-card > img { display: block; width: 100%; height: auto; object-fit: contain; }
+  .scene-card > p { position: absolute; inset: auto 0 0; z-index: 1; margin: 0; padding: 38px 18px 15px; color: white; background: linear-gradient(transparent, rgba(10,27,60,.8)); font-size: 14px; font-weight: 700; opacity: 0; transform: translateY(8px); transition: opacity .2s ease, transform .2s ease; pointer-events: none; }
+  .scene-card:hover > p, .scene-card:focus-visible > p { opacity: 1; transform: translateY(0); }
+  .scene-card:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+  .scene-card.coral { background: #f38b73; }
+  .scene-card.cream { background: #efe5d0; }
+  .scene-card.navy { color: white; background: #1c3668; }
+  .scene-card.green { background: #95b49c; }
+  .scene-card.orange { background: #ffad45; }
+  .mini-stand { align-self: center; width: 130px; height: 85px; display: grid; place-items: center; background: white; border: 7px solid var(--orange); box-shadow: 8px 9px 0 rgba(20,46,97,.35); transform: perspective(400px) rotateY(-12deg); }
+  .mini-stand span { font-size: 32px; }
+  .scene-card p { font-size: 14px; font-weight: 700; }
+  .brand-notes { display: grid; grid-template-columns: minmax(0, 760px) auto; gap: 18px 70px; align-items: start; padding-top: 0; }
+  .brand-notes p { grid-column: 1; margin: 0; max-width: 760px; font-size: clamp(18px, 1.4vw, 26.667px); line-height: 1.5; }
+  .award { grid-column: 2; grid-row: 1 / span 3; align-self: start; display: flex; align-items: center; gap: 12px; font-size: 10px; font-weight: 700; line-height: 1.45; }
+  .award img { width: 62px; height: 62px; object-fit: contain; }
+
+  .steps { position: relative; padding: 100px 0; color: white; background: var(--blue); }
+  .steps::before, .steps::after { content: ''; position: absolute; left: 0; right: 0; border-top: 2px dashed rgba(255,255,255,.72); }
+  .steps::before { top: 16px; }
+  .steps::after { bottom: 16px; }
+  .steps-heading { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 40px; margin-bottom: 70px; }
+  .steps-heading h2 { margin: 0; font-size: clamp(52px, 8vw, 92px); line-height: .9; letter-spacing: 0; }
+  .steps-heading p { margin: 0; max-width: 520px; color: rgba(255,255,255,.86); font-size: clamp(17px, 1.2vw, 20px); line-height: 1.5; }
+  .steps-heading p strong { display: block; margin-bottom: 8px; color: white; font-size: 22px; line-height: 1.15; }
+  .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 45px; }
+  .step-grid article { position: relative; }
+  .number { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; padding: 0 0 2px; border: 2px dashed rgb(255,206,149); border-radius: 50%; color: rgb(255,206,149); font-size: 40px; font-weight: 700; line-height: 1; text-align: center; }
+  .step-grid h3 { position: absolute; top: 7px; left: 80px; margin: 0; font-size: 15px; line-height: 1.2; }
+  .line-art { height: 300px; margin-top: 18px; background: url('/assets/wrapstanz/instructions.png') no-repeat center / 300% auto; }
+  .fold-one { background-position: left center; }
+  .fold-two { background-position: center center; }
+  .fold-three { background-position: right center; }
+
+  .story-sections { padding-block: 110px; }
+  .story-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .86fr); align-items: center; gap: clamp(55px, 9vw, 130px); margin-bottom: 130px; }
+  .story-row:last-child { margin-bottom: 20px; }
+  .story-row-reverse .story-copy { order: 2; }
+  .story-row-reverse .story-media-frame { order: 1; }
+  .story-copy h2 { margin: 0 0 22px; max-width: 620px; color: var(--navy); font-size: clamp(34px, 3vw, 48px); line-height: 1; letter-spacing: 0; }
+  .story-copy p { max-width: 680px; margin: 0 0 20px; color: #52627d; font-size: clamp(18px, 1.1vw, 20px); line-height: 1.5; }
+  .story-media-frame { position: relative; z-index: 0; }
+  .story-media-frame::after { content: ''; position: absolute; z-index: 1; border: 2px dashed var(--orange); border-radius: 18px; pointer-events: none; }
+  .story-row:nth-child(1) .story-media-frame::after { inset: -18px 10%; }
+  .story-row:nth-child(2) .story-media-frame::after { inset: 16px -16px -16px 0; }
+  .story-row:nth-child(2) .story-media-frame::before { content: ''; position: absolute; z-index: 2; top: 51.5%; left: 68%; right: calc(50px - clamp(55px, 9vw, 130px)); height: 2px; background: var(--orange); pointer-events: none; }
+  .story-row:nth-child(3) .story-media-frame::after { inset: -18px 7% -18px 11%; }
+  .story-row:nth-child(3) .story-media-frame::after { z-index: -1; }
+  .story-media { display: block; width: 100%; height: auto; object-fit: contain; border-radius: 10px; }
+  .placeholder { display: grid; place-items: center; overflow: hidden; color: var(--navy); background: linear-gradient(135deg, #e4e8ee, #f7f8fa 52%, #d7dce5); border: 1px solid #d7dce5; }
+  .placeholder::before { content: ''; position: absolute; width: 42%; aspect-ratio: 1.45; border: 9px solid var(--orange); background: var(--navy); box-shadow: 14px 16px 0 rgba(20,46,97,.18); transform: rotate(-6deg); }
+  .placeholder span { position: relative; z-index: 1; padding: 9px 13px; border-radius: 999px; color: white; background: var(--navy); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .impact-marks { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; margin-top: 26px; }
+  .impact-marks img { display: block; width: auto; max-width: 152px; max-height: 58px; object-fit: contain; }
+  .impact-marks img:first-child { max-height: 72px; }
+  .story-button, .price-copy a { display: inline-flex; margin-top: 9px; padding: 16px 24px; border: 2px solid var(--blue); border-radius: 10px; color: white; background: var(--blue); text-decoration: none; font-size: 20px; font-weight: 700; transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+  .story-button:hover, .price-copy a:hover { color: var(--navy); background: white; border-color: white; transform: translateY(-4px); box-shadow: 0 8px 0 rgba(20,46,97,.18); }
+  .story-button:focus-visible, .price-copy a:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+  .price-banner { position: relative; padding-block: 116px 104px; color: white; background: var(--blue); }
+  .price-banner::before { content: ''; position: absolute; top: 16px; left: 0; right: 0; border-top: 2px dashed rgba(255,255,255,.72); }
+  .price-grid { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: clamp(50px, 8vw, 110px); }
+  .price-media { display: block; width: 100%; height: auto; aspect-ratio: 601 / 429; object-fit: cover; border: 0; border-radius: 10px; }
+  .price-copy h2 { margin: 0 0 24px; font-size: clamp(40px, 3.5vw, 56px); line-height: 1.08; letter-spacing: 0; }
+  .price-copy a { border: 2px dashed white; background: transparent; }
+  .site-footer { color: white; background: var(--navy); }
+  .footer-inner { min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 24px; font-size: clamp(13px, 1vw, 16px); }
+  .footer-inner a { color: var(--orange); }
+  .footer-inner .brand { color: white; }
+  .footer-inner .brand img { height: 46px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .t-modal { transition: none !important; }
+  }
+  @media (max-width: 720px) {
+    .shell { width: min(100% - 28px, 1360px); }
+    .site-header { height: 70px; }
+    .contact-panel { padding: 38px 20px 24px; }
+    .contact-panel::before { inset: -10px; }
+    .hero { padding-top: 110px; }
+    .hero-copy, .steps-heading { grid-template-columns: 1fr; gap: 42px; }
+    .hero-title-wrap { margin-inline: auto; }
+    h1 { letter-spacing: -3px; }
+    .product-stage { width: calc(100% - 16px); height: auto; aspect-ratio: 1125 / 633; }
+    .stand { inset: 20% 10% 15%; }
+    .brand-section h2 { letter-spacing: -2px; }
+    .brand-notes, .step-grid { grid-template-columns: 1fr; }
+    .brand-notes { gap: 22px; }
+    .brand-notes p, .award { grid-column: 1; grid-row: auto; }
+    .step-grid { gap: 65px; }
+    .line-art { height: 230px; }
+    .story-sections { padding-block: 80px; }
+    .story-row, .price-grid { grid-template-columns: 1fr; gap: 45px; }
+    .story-row { margin-bottom: 100px; }
+    .story-row-reverse .story-copy, .story-row-reverse .story-media-frame { order: initial; }
+    .price-media { height: auto; }
+    .story-row:nth-child(2) .story-media-frame::before { display: none; }
+    .price-copy h2 { letter-spacing: -2px; }
+    .footer-inner { padding-block: 28px; flex-direction: column; justify-content: center; text-align: center; }
+  }
+</style>
