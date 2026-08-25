@@ -1,28 +1,30 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const asset = (name) => `${base}assets/wrapstanz/${name}`;
 const useCases = [
-  { label: 'Airplane', icon: '/assets/wrapstanz/airplane.svg' },
-  { label: 'Hotel room', icon: '/assets/wrapstanz/hotel-room.svg' },
-  { label: 'Coffee table', icon: '/assets/wrapstanz/coffee-table.svg' },
-  { label: 'Work desk', icon: '/assets/wrapstanz/work-desk.svg' },
-  { label: 'Gym', icon: '/assets/wrapstanz/gym.svg' },
-  { label: 'Vacation', icon: '/assets/wrapstanz/vacation.svg' },
-  { label: 'Keynote overflow', icon: '/assets/wrapstanz/keynote.svg' },
-  { label: 'Video calls', icon: '/assets/wrapstanz/video-calls.svg' },
+  { label: 'Airplane', icon: asset('airplane.svg') },
+  { label: 'Hotel room', icon: asset('hotel-room.svg') },
+  { label: 'Coffee table', icon: asset('coffee-table.svg') },
+  { label: 'Work desk', icon: asset('work-desk.svg') },
+  { label: 'Gym', icon: asset('gym.svg') },
+  { label: 'Vacation', icon: asset('vacation.svg') },
+  { label: 'Keynote overflow', icon: asset('keynote.svg') },
+  { label: 'Video calls', icon: asset('video-calls.svg') },
 ];
 const scenes = [
-  { label: 'Work from anywhere', image: '/assets/wrapstanz/window-seat.png', featured: true },
-  { label: 'The coffee shop office', image: '/assets/wrapstanz/coffee-shop.png' },
-  { label: 'Movies, made private', image: '/assets/wrapstanz/picnic.png' },
-  { label: 'A screen for two', image: '/assets/wrapstanz/kitchen.png', featured: true },
-  { label: 'Always eye level', image: '/assets/wrapstanz/bathroom.png' },
-  { label: 'Keynotes, up close', image: '/assets/wrapstanz/keynote-event.png' },
-  { label: 'Video calls', image: '/assets/wrapstanz/video-call.png', featured: true },
-  { label: 'Events after hours', image: '/assets/wrapstanz/bar-event.png' },
-  { label: 'Make every view count', image: '/assets/wrapstanz/coloring-airplane.png' },
+  { label: 'Work from anywhere', image: asset('window-seat.png'), featured: true },
+  { label: 'The coffee shop office', image: asset('coffee-shop.png') },
+  { label: 'Movies, made private', image: asset('picnic.png') },
+  { label: 'A screen for two', image: asset('kitchen.png'), featured: true },
+  { label: 'Always eye level', image: asset('bathroom.png') },
+  { label: 'Keynotes, up close', image: asset('keynote-event.png') },
+  { label: 'Video calls', image: asset('video-call.png'), featured: true },
+  { label: 'Events after hours', image: asset('bar-event.png') },
+  { label: 'Make every view count', image: asset('coloring-airplane.png') },
 ];
 const sceneColumns = [
   [scenes[5], scenes[6]],
-  [{ label: 'Events after hours', image: '/assets/wrapstanz/pint.png' }],
+  [{ label: 'Events after hours', image: asset('pint.png') }],
   [scenes[2], scenes[7]],
   [scenes[8], scenes[1]],
   [scenes[4], scenes[0]],
@@ -44,7 +46,7 @@ const sceneColumns = [
   <body>
     <header class="site-header shell">
       <a class="brand" href="#top" aria-label="Wrapstanz home">
-        <img src="/assets/wrapstanz/logo.png" alt="Wrapstanz" />
+        <img src={asset('logo.png')} alt="Wrapstanz" />
       </a>
       <button class="contact-link" type="button" data-contact-open>Contact</button>
     </header>
@@ -67,7 +69,7 @@ const sceneColumns = [
       <section class="hero">
         <div class="shell hero-copy">
           <div class="hero-title-wrap">
-            <h1><img src="/assets/wrapstanz/hold-the-phone.svg" alt="Hold the phone!" /></h1>
+            <h1><img src={asset('hold-the-phone.svg')} alt="Hold the phone!" /></h1>
           </div>
           <div class="intro">
             <h2>Wrapstanz puts your brand on top of every view.</h2>
@@ -83,10 +85,10 @@ const sceneColumns = [
         <div class="product-stage shell" data-comparison style="--position: 62%">
           <svg class="comparison-outline" aria-hidden="true"><rect /></svg>
           <div class="comparison-layer comparison-before" aria-hidden="true">
-            <img src="/assets/wrapstanz/before.png" alt="" />
+            <img src={asset('before.png')} alt="" />
           </div>
           <div class="comparison-layer comparison-after" aria-hidden="true">
-            <img src="/assets/wrapstanz/after.png" alt="" />
+            <img src={asset('after.png')} alt="" />
           </div>
           <input class="comparison-range" type="range" min="0" max="100" value="62" aria-label="Before and after comparison slider" />
           <div class="comparison-divider" aria-hidden="true"><span>↔</span></div>
@@ -124,11 +126,11 @@ const sceneColumns = [
           <p><strong>Wrap their phone in your brand.</strong> Everything they watch has you talking to them. Create different ones. Make them collectible. Give them a few.</p>
           <p>Your customers are your brand, let them evangelize what a great company you are while they watch..</p>
           <p>They’re happy. You’re happy. Everyone is happy.</p>
-          <div class="award"><img src="/assets/wrapstanz/good-design.png" alt="Good Design" /> <span>GOOD GREEN DESIGN<br />2026 AWARD ENTRY</span></div>
+          <div class="award"><img src={asset('good-design.png')} alt="Good Design" /> <span>GOOD GREEN DESIGN<br />2026 AWARD ENTRY</span></div>
         </div>
       </section>
 
-      <section class="steps">
+      <section class="steps" style={`--instructions-image: url("${asset('instructions.png')}")`}>
         <div class="shell">
           <div class="steps-heading">
             <h2>1, 2, 3…<br />it’s a wrap!</h2>
@@ -161,12 +163,12 @@ const sceneColumns = [
             <p>We only use FSC Certified cardboard on all of our products. Using only eco-friendly water-based or soy-based inks helps minimize environmental impact by avoiding harmful chemicals and making the finished project easier to recycle.</p>
             <p>We also donate 1% of all profits to The Nature Conservancy, a dedicated staff, scientists and members advancing effective, lasting conservation in more than 80 countries and territories.</p>
             <div class="impact-marks" aria-label="Sustainability certifications">
-              <img src="/assets/wrapstanz/fsc.png" alt="FSC certified" />
-              <img src="/assets/wrapstanz/made-in-usa.png" alt="Made in USA" />
-              <img src="/assets/wrapstanz/nature-conservancy.png" alt="The Nature Conservancy" />
+              <img src={asset('fsc.png')} alt="FSC certified" />
+              <img src={asset('made-in-usa.png')} alt="Made in USA" />
+              <img src={asset('nature-conservancy.png')} alt="The Nature Conservancy" />
             </div>
           </div>
-          <div class="story-media-frame"><img class="story-media" src="/assets/wrapstanz/who-cares.png" alt="A child coloring beside a Wrapstanz display on an airplane tray table" loading="lazy" /></div>
+          <div class="story-media-frame"><img class="story-media" src={asset('who-cares.png')} alt="A child coloring beside a Wrapstanz display on an airplane tray table" loading="lazy" /></div>
         </article>
 
         <article class="story-row story-row-reverse">
@@ -175,7 +177,7 @@ const sceneColumns = [
             <p>The demo, a keynote or the entire event—a simple printed QR code or URL allows you to direct your viewers to the content you’d like them to see.</p>
             <a class="story-button" href="mailto:hello@wrapstanz.com">Get in the fold</a>
           </div>
-          <div class="story-media-frame"><img class="story-media" src="/assets/wrapstanz/drive-them.png" alt="A purple event-branded Wrapstanz display featuring a QR code" loading="lazy" /></div>
+          <div class="story-media-frame"><img class="story-media" src={asset('drive-them.png')} alt="A purple event-branded Wrapstanz display featuring a QR code" loading="lazy" /></div>
         </article>
 
         <article class="story-row">
@@ -186,13 +188,13 @@ const sceneColumns = [
             <p>We know there is no more room for landfill, expensive, destructive technology giveaways. Nobody uses them or wants them. Let’s make something they want, will use and is approved by 3% of the world: recycle.</p>
             <p>This isn’t a premium, this is simple and makes sense. We know it.</p>
           </div>
-          <div class="story-media-frame"><img class="story-media" src="/assets/wrapstanz/who-we-are.png" alt="A grid of event cards displayed outdoors" loading="lazy" /></div>
+          <div class="story-media-frame"><img class="story-media" src={asset('who-we-are.png')} alt="A grid of event cards displayed outdoors" loading="lazy" /></div>
         </article>
       </section>
 
       <section class="price-banner">
         <div class="shell price-grid">
-          <img class="price-media" src="/assets/wrapstanz/best-part.png" alt="A Wrapstanz display on an airplane tray table" loading="lazy" />
+          <img class="price-media" src={asset('best-part.png')} alt="A Wrapstanz display on an airplane tray table" loading="lazy" />
           <div class="price-copy">
             <h2>The best part? The price.<br />They’re made out of<br />cardboard and ink.</h2>
             <a href="mailto:hello@wrapstanz.com">Get a quote</a>
@@ -204,7 +206,7 @@ const sceneColumns = [
     <footer class="site-footer">
       <div class="shell footer-inner">
         <p>Patent Pending 2026, Poppy &amp; Sons LLC, Wrapstanz ™2026, Inc. All rights reserved.</p>
-        <a class="brand" href="#top"><img src="/assets/wrapstanz/logo.png" alt="Wrapstanz" /></a>
+        <a class="brand" href="#top"><img src={asset('logo.png')} alt="Wrapstanz" /></a>
       </div>
     </footer>
     <script>
@@ -410,7 +412,7 @@ const sceneColumns = [
   .step-grid article { position: relative; }
   .number { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; padding: 0 0 2px; border: 2px dashed rgb(255,206,149); border-radius: 50%; color: rgb(255,206,149); font-size: 40px; font-weight: 700; line-height: 1; text-align: center; }
   .step-grid h3 { position: absolute; top: 7px; left: 80px; margin: 0; font-size: 15px; line-height: 1.2; }
-  .line-art { height: 300px; margin-top: 18px; background: url('/assets/wrapstanz/instructions.png') no-repeat center / 300% auto; }
+  .line-art { height: 300px; margin-top: 18px; background: var(--instructions-image) no-repeat center / 300% auto; }
   .fold-one { background-position: left center; }
   .fold-two { background-position: center center; }
   .fold-three { background-position: right center; }
