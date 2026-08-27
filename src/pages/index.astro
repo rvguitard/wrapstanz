@@ -1,6 +1,7 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const asset = (name) => `${base}assets/wrapstanz/${name}`;
+const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? '';
 const useCases = [
   { label: 'Airplane', icon: asset('airplane.svg') },
   { label: 'Hotel room', icon: asset('hotel-room.svg') },
@@ -55,13 +56,17 @@ const sceneColumns = [
       <div class="contact-panel">
         <button class="contact-close" type="button" aria-label="Close contact form" data-contact-close>×</button>
         <h2 id="contact-title">Let ’em “Stanz” your brand</h2>
-        <form action="mailto:hello@wrapstanz.com" method="post" enctype="text/plain">
+        <form action={contactEndpoint || undefined} method="post" target="contact-submit-frame" data-contact-form data-configured={contactEndpoint ? 'true' : 'false'}>
           <label><span>Name*</span><input name="name" autocomplete="name" required /></label>
           <label><span>Email*</span><input type="email" name="email" autocomplete="email" required /></label>
           <label><span>Company</span><input name="company" autocomplete="organization" /></label>
           <label><span>Questions?</span><textarea name="questions" rows="4"></textarea></label>
-          <button type="submit">Contact</button>
+          <input type="hidden" name="page" value="Wrapstanz website" />
+          <label class="contact-honeypot" aria-hidden="true"><span>Website</span><input name="website" tabindex="-1" autocomplete="off" /></label>
+          <p class="contact-status" aria-live="polite"></p>
+          <button type="submit" data-contact-submit>Contact</button>
         </form>
+        <iframe class="contact-submit-frame" name="contact-submit-frame" title="Contact form submission"></iframe>
       </div>
     </dialog>
 
@@ -235,7 +240,12 @@ const sceneColumns = [
       const contactDialog = document.querySelector<HTMLDialogElement>('.contact-dialog');
       const contactOpen = document.querySelector<HTMLButtonElement>('[data-contact-open]');
       const contactClose = contactDialog?.querySelector<HTMLButtonElement>('[data-contact-close]');
+      const contactForm = contactDialog?.querySelector<HTMLFormElement>('[data-contact-form]');
+      const contactFrame = contactDialog?.querySelector<HTMLIFrameElement>('.contact-submit-frame');
+      const contactStatus = contactDialog?.querySelector<HTMLElement>('.contact-status');
+      const contactSubmit = contactDialog?.querySelector<HTMLButtonElement>('[data-contact-submit]');
       const closeMs = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--modal-close-dur')) || 150;
+      let contactPending = false;
 
       function openContact() {
         if (!contactDialog || contactDialog.open) return;
@@ -261,6 +271,24 @@ const sceneColumns = [
       contactClose?.addEventListener('click', closeContact);
       contactDialog?.addEventListener('cancel', (event) => { event.preventDefault(); closeContact(); });
       contactDialog?.addEventListener('click', (event) => { if (event.target === contactDialog) closeContact(); });
+      contactForm?.addEventListener('submit', (event) => {
+        if (contactForm.dataset.configured !== 'true') {
+          event.preventDefault();
+          if (contactStatus) contactStatus.textContent = 'Contact form setup is not complete yet. Please email hello@wrapstanz.com.';
+          return;
+        }
+        contactPending = true;
+        if (contactStatus) contactStatus.textContent = 'Sending…';
+        if (contactSubmit) contactSubmit.disabled = true;
+      });
+      contactFrame?.addEventListener('load', () => {
+        if (!contactPending) return;
+        contactPending = false;
+        contactForm?.reset();
+        if (contactStatus) contactStatus.textContent = 'Thanks! Your message has been sent.';
+        if (contactSubmit) contactSubmit.disabled = false;
+        setTimeout(closeContact, 900);
+      });
     </script>
   </body>
 </html>
@@ -328,6 +356,9 @@ const sceneColumns = [
   .contact-panel label:focus-within { outline: 3px solid var(--orange); outline-offset: 1px; }
   .contact-panel form > button { min-height: 58px; border: 0; border-radius: 10px; color: var(--navy); background: var(--orange); font: inherit; font-size: 18px; font-weight: 800; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
   .contact-panel form > button:hover { background: #ffad45; transform: translateY(-3px); box-shadow: 0 8px 0 rgba(20,46,97,.16); }
+  .contact-panel form > button:disabled { cursor: wait; opacity: .65; transform: none; box-shadow: none; }
+  .contact-honeypot, .contact-submit-frame { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip-path: inset(50%) !important; }
+  .contact-status { min-height: 1.4em; margin: 0; color: #52627d; font-size: 14px; text-align: center; }
   .contact-close { position: absolute; z-index: 2; top: 12px; right: 14px; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; color: var(--navy); background: transparent; font-size: 28px; line-height: 1; cursor: pointer; }
   .contact-close:hover { background: rgba(20,46,97,.08); }
 
