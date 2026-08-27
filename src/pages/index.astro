@@ -240,7 +240,23 @@ const sceneColumns = [
     <script>
       document.querySelectorAll<HTMLElement>('[data-comparison]').forEach((comparison) => {
         const range = comparison.querySelector<HTMLInputElement>('.comparison-range');
-        range?.addEventListener('input', () => comparison.style.setProperty('--position', `${range.value}%`));
+        if (!range) return;
+        let dragging = false;
+        const setPosition = (clientX: number) => {
+          const bounds = comparison.getBoundingClientRect();
+          const value = Math.min(100, Math.max(0, ((clientX - bounds.left) / bounds.width) * 100));
+          range.value = String(value);
+          comparison.style.setProperty('--position', `${value}%`);
+        };
+        range.addEventListener('input', () => comparison.style.setProperty('--position', `${range.value}%`));
+        range.addEventListener('pointerdown', (event) => {
+          dragging = true;
+          range.setPointerCapture(event.pointerId);
+          setPosition(event.clientX);
+        });
+        range.addEventListener('pointermove', (event) => { if (dragging) setPosition(event.clientX); });
+        range.addEventListener('pointerup', () => { dragging = false; });
+        range.addEventListener('pointercancel', () => { dragging = false; });
       });
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -511,7 +527,7 @@ const sceneColumns = [
   .orb-one { width: 45%; aspect-ratio: 1; left: 8%; top: -18%; background: #ff9e37; }
   .orb-two { width: 44%; aspect-ratio: 1; right: 5%; bottom: -20%; background: #1ad2d5; }
   .phone-copy { position: absolute; left: 6%; bottom: 9%; font-weight: 600; font-size: clamp(12px, 2vw, 22px); color: white; }
-  .comparison-range { position: absolute; z-index: 5; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+  .comparison-range { position: absolute; z-index: 5; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; }
   .comparison-range:focus-visible + .comparison-divider span { outline: 4px solid white; outline-offset: 4px; }
   .comparison-divider { position: absolute; z-index: 4; top: -26px; bottom: -26px; left: var(--position); width: 5px; background: var(--orange); pointer-events: none; transform: translateX(-50%); }
   .comparison-divider span { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 50px; aspect-ratio: 1; color: white; background: var(--orange); border: 3px solid white; border-radius: 50%; box-shadow: 0 4px 14px rgba(20,46,97,.25); transform: translate(-50%,-50%); transition: transform .2s ease, box-shadow .2s ease; }
@@ -601,7 +617,7 @@ const sceneColumns = [
   .footer-inner a { color: var(--orange); }
   .footer-inner .brand { color: white; }
   .footer-inner .brand img { height: 46px; }
-  .footer-contact { display: inline-flex; margin-left: 12px; padding: 7px 12px; border: 1px solid var(--orange); border-radius: 8px; font-weight: 700; text-decoration: none; }
+  .footer-contact { margin-left: 12px; font-weight: 700; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -611,6 +627,7 @@ const sceneColumns = [
     main, .site-footer { text-align: center; }
     .shell { width: min(100% - 28px, 1360px); }
     .site-header { height: 70px; }
+    .contact-link { padding: 10px 14px; border-radius: 8px; font-size: 15px; }
     .contact-panel { padding: 38px 20px 24px; }
     .contact-panel::before { inset: -10px; }
     .hero { padding-top: 110px; }
@@ -618,8 +635,12 @@ const sceneColumns = [
     .hero-title-wrap { margin-inline: auto; }
     h1 { letter-spacing: -3px; }
     .product-stage { width: calc(100% - 16px); height: auto; aspect-ratio: 1125 / 633; }
+    .comparison-divider span { width: 64px; border-width: 4px; }
+    .product-stage:hover .comparison-divider span { transform: translate(-50%,-50%) scale(1); }
+    .product-stage:active .comparison-divider span { transform: translate(-50%,-50%) scale(1.12); }
     .stand { inset: 20% 10% 15%; }
     .brand-section h2 { letter-spacing: -2px; }
+    .scene-column { width: min(78vw, 320px); }
     .brand-notes, .step-grid { grid-template-columns: 1fr; }
     .brand-notes { justify-items: center; gap: 22px; }
     .brand-notes p, .award { grid-column: 1; grid-row: auto; }
