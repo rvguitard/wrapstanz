@@ -1,7 +1,7 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const asset = (name) => `${base}assets/wrapstanz/${name}`;
-const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? '';
+const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? 'https://script.google.com/macros/s/AKfycbyAedkKwDjSHifRVpMrGh0YF6jzSekGHIQhEkOzUT6kXZTljux7HMAMD8RgV40XDyf9Yw/exec';
 const useCases = [
   { label: 'Airplane', icon: asset('airplane.svg') },
   { label: 'Hotel room', icon: asset('hotel-room.svg') },
@@ -65,17 +65,30 @@ const sceneColumns = [
     <dialog class="contact-dialog t-modal" aria-labelledby="contact-title">
       <div class="contact-panel">
         <button class="contact-close" type="button" aria-label="Close contact form" data-contact-close>×</button>
-        <h2 id="contact-title">Let ’em “Stanz” your brand</h2>
-        <form action={contactEndpoint || undefined} method="post" target="contact-submit-frame" data-contact-form data-configured={contactEndpoint ? 'true' : 'false'}>
-          <label><span>Name*</span><input name="name" autocomplete="name" required /></label>
-          <label><span>Email*</span><input type="email" name="email" autocomplete="email" required /></label>
-          <label><span>Company</span><input name="company" autocomplete="organization" /></label>
-          <label><span>Questions?</span><textarea name="questions" rows="4"></textarea></label>
-          <input type="hidden" name="page" value="Wrapstanz website" />
-          <label class="contact-honeypot" aria-hidden="true"><span>Website</span><input name="website" tabindex="-1" autocomplete="off" /></label>
-          <p class="contact-status" aria-live="polite"></p>
-          <button type="submit" data-contact-submit>Contact</button>
-        </form>
+        <div class="contact-content">
+          <div class="contact-form-view">
+            <h2 id="contact-title">Let ’em “Stan” your brand</h2>
+            <form action={contactEndpoint || undefined} method="post" target="contact-submit-frame" data-contact-form data-configured={contactEndpoint ? 'true' : 'false'}>
+              <label><span>Name*</span><input name="name" autocomplete="name" required /></label>
+              <label><span>Email*</span><input type="email" name="email" autocomplete="email" required /></label>
+              <label><span>Company</span><input name="company" autocomplete="organization" /></label>
+              <label><span>Questions?</span><textarea name="questions" rows="4"></textarea></label>
+              <input type="hidden" name="page" value="Wrapstanz website" />
+              <label class="contact-honeypot" aria-hidden="true"><span>Website</span><input name="website" tabindex="-1" autocomplete="off" /></label>
+              <p class="contact-status" aria-live="polite"></p>
+              <button type="submit" data-contact-submit>Contact</button>
+            </form>
+          </div>
+          <div class="contact-success" role="status" aria-live="polite">
+            <span class="t-success-check" data-state="out" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="3" />
+                <path d="M15 24.5 21.5 31 34 17" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <h2>Thanks!<br />We’ll be in touch soon.</h2>
+          </div>
+        </div>
         <iframe class="contact-submit-frame" name="contact-submit-frame" title="Contact form submission"></iframe>
       </div>
     </dialog>
@@ -110,7 +123,7 @@ const sceneColumns = [
         </div>
 
         <div class="shell works">
-          <strong>It just works anywhere!</strong>
+          <strong>It just works – anywhere!</strong>
           <div class="chips">
             {useCases.map((item) => <span><img src={item.icon} alt="" aria-hidden="true" />{item.label}</span>)}
           </div>
@@ -139,13 +152,13 @@ const sceneColumns = [
         </div>
         <div class="shell brand-notes">
           <p><strong>Wrap their phone in your brand.</strong> Everything they watch has you talking to them. Create different ones. Make them collectible. Give them a few.</p>
-          <p>Your customers are your brand, let them evangelize what a great company you are while they watch..</p>
+          <p>Your customers are your brand, let them evangelize what a great company you are while they watch.</p>
           <p>They’re happy. You’re happy. Everyone is happy.</p>
           <div class="award"><img src={asset('good-design.png')} alt="Good Design" /> <span>GOOD GREEN DESIGN<br />2026 AWARD ENTRY</span></div>
         </div>
       </section>
 
-      <section class="steps" style={`--instructions-image: url("${asset('instructions.png')}")`}>
+      <section class="steps">
         <div class="shell">
           <div class="steps-heading">
             <h2>1, 2, 3…<br />it’s a wrap!</h2>
@@ -155,17 +168,17 @@ const sceneColumns = [
             <article>
               <span class="number">1</span>
               <h3>Tear out the window<br />and start to fold.</h3>
-              <div class="line-art fold-one" aria-hidden="true"></div>
+              <img class="instruction-art" src={asset('instructions-mobile-1.png')} alt="Tear out the window and start to fold" loading="lazy" />
             </article>
             <article>
               <span class="number">2</span>
               <h3>Unfold the easel<br />back stands.</h3>
-              <div class="line-art fold-two" aria-hidden="true"></div>
+              <img class="instruction-art" src={asset('instructions-mobile-2.png')} alt="Unfold the easel back stands" loading="lazy" />
             </article>
             <article>
               <span class="number">3</span>
               <h3>Insert phone<br />and enjoy.</h3>
-              <div class="line-art fold-three" aria-hidden="true"></div>
+              <img class="instruction-art" src={asset('instructions-mobile-3.png')} alt="Insert the phone and enjoy" loading="lazy" />
             </article>
           </div>
         </div>
@@ -188,19 +201,19 @@ const sceneColumns = [
 
         <article class="story-row story-row-reverse">
           <div class="story-copy">
-            <h2>Drive them to what you want them to see. That’s the vision.</h2>
+            <h2>Drive them to what you want them to see.<br />That’s the vision.</h2>
             <p>The demo, a keynote or the entire event—a simple printed QR code or URL allows you to direct your viewers to the content you’d like them to see.</p>
-            <a class="story-button" href="mailto:hello@wrapstanz.com">Get in the fold</a>
+            <button class="story-button" type="button" data-contact-open>Get in the fold</button>
           </div>
           <div class="story-media-frame"><img class="story-media" src={asset('drive-them.png')} alt="A purple event-branded Wrapstanz display featuring a QR code" loading="lazy" /></div>
         </article>
 
         <article class="story-row">
           <div class="story-copy">
-            <h2>Who the heck are we?</h2>
+            <h2>What do we know?</h2>
             <p>Events are in our blood. We were key leaders in the tech event and startup space, working hundreds of large and small events.</p>
             <p>We had an idea. We know the business of events isn’t just a good time. It’s about customers, prospects, demos, keynotes, leads, results and metrics. We know that giving a customer a useful small gift leads to brand advocacy. And rewarding a prospect leads to awareness, consideration and possibly brand love. Bingo! Wrapstanz was born!</p>
-            <p>We know there is no more room for landfill, expensive, destructive technology giveaways. Nobody uses them or wants them. Let’s make something they want, will use and is approved by 3% of the world: recycle.</p>
+            <p>There is no more room for landfill, expensive, destructive technology giveaways. Nobody uses them or wants them. Let’s make something they want, will use and is approved by 3% of the world: recycle.</p>
             <p>This isn’t a premium, this is simple and makes sense. We know it.</p>
           </div>
           <div class="story-media-frame"><img class="story-media" src={asset('who-we-are.png')} alt="A grid of event cards displayed outdoors" loading="lazy" /></div>
@@ -212,7 +225,7 @@ const sceneColumns = [
           <img class="price-media" src={asset('best-part.png')} alt="A Wrapstanz display on an airplane tray table" loading="lazy" />
           <div class="price-copy">
             <h2>The best part? The price.<br />They’re made out of<br />cardboard and ink.</h2>
-            <a href="mailto:hello@wrapstanz.com">Get a quote</a>
+            <button class="price-button" type="button" data-contact-open>Get a quote</button>
           </div>
         </div>
       </section>
@@ -220,7 +233,7 @@ const sceneColumns = [
 
     <footer class="site-footer">
       <div class="shell footer-inner">
-        <p>Patent Pending 2026, Poppy &amp; Sons LLC, Wrapstanz ™2026, Inc. All rights reserved.</p>
+        <p>Patent Pending 2026, Poppy &amp; Sons LLC, Wrapstanz ™2026, Inc. All rights reserved. <a class="footer-contact" href="mailto:james@wrapstanz.com">Contact</a></p>
         <a class="brand" href="#top"><img src={asset('logo.png')} alt="Wrapstanz" /></a>
       </div>
     </footer>
@@ -248,17 +261,30 @@ const sceneColumns = [
       });
 
       const contactDialog = document.querySelector<HTMLDialogElement>('.contact-dialog');
-      const contactOpen = document.querySelector<HTMLButtonElement>('[data-contact-open]');
+      const contactPanel = contactDialog?.querySelector<HTMLElement>('.contact-panel');
+      const contactOpeners = document.querySelectorAll<HTMLButtonElement>('[data-contact-open]');
       const contactClose = contactDialog?.querySelector<HTMLButtonElement>('[data-contact-close]');
       const contactForm = contactDialog?.querySelector<HTMLFormElement>('[data-contact-form]');
       const contactFrame = contactDialog?.querySelector<HTMLIFrameElement>('.contact-submit-frame');
       const contactStatus = contactDialog?.querySelector<HTMLElement>('.contact-status');
       const contactSubmit = contactDialog?.querySelector<HTMLButtonElement>('[data-contact-submit]');
+      const successCheck = contactDialog?.querySelector<HTMLElement>('.t-success-check');
+      const successPath = successCheck?.querySelector<SVGPathElement>('svg path');
       const closeMs = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--modal-close-dur')) || 150;
       let contactPending = false;
+      let lastContactOpener: HTMLButtonElement | null = null;
 
-      function openContact() {
+      if (successPath) {
+        const length = Math.ceil(successPath.getTotalLength());
+        successPath.style.strokeDasharray = String(length);
+        successPath.style.strokeDashoffset = String(length);
+      }
+
+      function openContact(event: Event) {
         if (!contactDialog || contactDialog.open) return;
+        lastContactOpener = event.currentTarget as HTMLButtonElement;
+        contactPanel?.setAttribute('data-view', 'form');
+        successCheck?.setAttribute('data-state', 'out');
         contactDialog.classList.remove('is-closing');
         contactDialog.showModal();
         document.documentElement.style.overflow = 'hidden';
@@ -273,11 +299,13 @@ const sceneColumns = [
           contactDialog.classList.remove('is-closing');
           contactDialog.close();
           document.documentElement.style.overflow = '';
-          contactOpen?.focus();
+          contactPanel?.setAttribute('data-view', 'form');
+          successCheck?.setAttribute('data-state', 'out');
+          lastContactOpener?.focus();
         }, closeMs);
       }
 
-      contactOpen?.addEventListener('click', openContact);
+      contactOpeners.forEach((opener) => opener.addEventListener('click', openContact));
       contactClose?.addEventListener('click', closeContact);
       contactDialog?.addEventListener('cancel', (event) => { event.preventDefault(); closeContact(); });
       contactDialog?.addEventListener('click', (event) => { if (event.target === contactDialog) closeContact(); });
@@ -295,9 +323,14 @@ const sceneColumns = [
         if (!contactPending) return;
         contactPending = false;
         contactForm?.reset();
-        if (contactStatus) contactStatus.textContent = 'Thanks! Your message has been sent.';
+        if (contactStatus) contactStatus.textContent = '';
         if (contactSubmit) contactSubmit.disabled = false;
-        setTimeout(closeContact, 900);
+        contactPanel?.setAttribute('data-view', 'success');
+        if (successCheck) {
+          successCheck.setAttribute('data-state', 'out');
+          void successCheck.offsetWidth;
+          successCheck.setAttribute('data-state', 'in');
+        }
       });
     </script>
   </body>
@@ -317,6 +350,20 @@ const sceneColumns = [
     --modal-scale: 0.96;
     --modal-scale-close: 0.96;
     --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --check-opacity-dur: 500ms;
+    --check-rotate-dur: 500ms;
+    --check-rotate-from: 80deg;
+    --check-bob-dur: 500ms;
+    --check-y-amount: 40px;
+    --check-blur-dur: 500ms;
+    --check-blur-from: 10px;
+    --check-path-dur: 500ms;
+    --check-path-delay: 80ms;
+    --check-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --check-ease-opacity: cubic-bezier(0.22, 1, 0.36, 1);
+    --check-ease-rotate: cubic-bezier(0.22, 1, 0.36, 1);
+    --check-ease-bob: cubic-bezier(0.34, 1.35, 0.64, 1);
+    --check-ease-path: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   * { box-sizing: border-box; letter-spacing: 0 !important; }
@@ -354,11 +401,17 @@ const sceneColumns = [
       transform var(--modal-close-dur) var(--modal-ease),
       opacity   var(--modal-close-dur) var(--modal-ease);
   }
-  .contact-dialog { width: min(520px, calc(100% - 52px)); max-width: none; padding: 0; border: 0; overflow: visible; color: var(--navy); background: transparent; }
+  .contact-dialog { width: min(680px, calc(100% - 52px)); max-width: none; padding: 0; border: 0; overflow: visible; color: var(--navy); background: transparent; }
   .contact-dialog::backdrop { background: rgba(12, 39, 88, .86); backdrop-filter: blur(4px); }
   .contact-panel { position: relative; padding: 42px 42px 38px; border-radius: 18px; background: #fff8ec; box-shadow: 0 30px 80px rgba(8, 25, 58, .35); }
   .contact-panel::before { content: ''; position: absolute; inset: -18px; border: 4px dashed white; border-radius: 26px; pointer-events: none; }
+  .contact-content { display: grid; }
+  .contact-form-view, .contact-success { grid-area: 1 / 1; transition: opacity 250ms var(--modal-ease), transform 250ms var(--modal-ease), visibility 250ms; }
+  .contact-success { min-height: 440px; display: grid; place-content: center; justify-items: center; gap: 18px; text-align: center; opacity: 0; visibility: hidden; transform: translateY(12px); pointer-events: none; }
+  .contact-panel[data-view="success"] .contact-form-view { opacity: 0; visibility: hidden; transform: translateY(-12px); pointer-events: none; }
+  .contact-panel[data-view="success"] .contact-success { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
   .contact-panel h2 { margin: 0 24px 30px; text-align: center; font-size: clamp(28px, 4vw, 38px); line-height: 1.1; }
+  .contact-panel .contact-success h2 { margin: 0; }
   .contact-panel form { display: grid; gap: 12px; }
   .contact-panel label { display: grid; gap: 5px; padding: 13px 18px; border-radius: 10px; background: white; }
   .contact-panel label span { color: #52627d; font-size: 14px; font-weight: 700; }
@@ -371,6 +424,58 @@ const sceneColumns = [
   .contact-status { min-height: 1.4em; margin: 0; color: #52627d; font-size: 14px; text-align: center; }
   .contact-close { position: absolute; z-index: 2; top: 12px; right: 14px; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; color: var(--navy); background: transparent; font-size: 28px; line-height: 1; cursor: pointer; }
   .contact-close:hover { background: rgba(20,46,97,.08); }
+
+  /* Wrapper drives the appear animation; it doesn't own any
+     sizing or color so you can drop in any icon. */
+  .t-success-check {
+    display: inline-block;
+    transform-origin: center;
+    opacity: 0;
+    will-change: transform, opacity, filter;
+  }
+  /* overflow: visible keeps the stroke from clipping while it
+     draws; display: block kills the inline whitespace under SVGs. */
+  .t-success-check svg { display: block; overflow: visible; }
+  /* Stroke-draw setup. Replace 20 with the result of
+     path.getTotalLength() for your path; round caps mean any
+     sub-pixel overshoot is invisible. */
+  .t-success-check svg path {
+    stroke-dasharray: 20;
+    stroke-dashoffset: 20;
+  }
+
+  .t-success-check[data-state="in"] {
+    animation:
+      t-check-fade   var(--check-opacity-dur) var(--check-ease-opacity) forwards,
+      t-check-rotate var(--check-rotate-dur)  var(--check-ease-rotate)  forwards,
+      t-check-blur   var(--check-blur-dur)    var(--check-ease-out)     forwards,
+      t-check-bob    var(--check-bob-dur)     var(--check-ease-bob)     forwards;
+  }
+  .t-success-check[data-state="in"] svg path {
+    animation: t-check-draw var(--check-path-dur) var(--check-ease-path) var(--check-path-delay, 0ms) forwards;
+  }
+
+  @keyframes t-check-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes t-check-rotate {
+    from { transform: rotate(var(--check-rotate-from)); }
+    to   { transform: rotate(0deg); }
+  }
+  @keyframes t-check-blur {
+    from { filter: blur(var(--check-blur-from)); }
+    to   { filter: blur(0); }
+  }
+  @keyframes t-check-bob {
+    from { translate: 0 var(--check-y-amount); }
+    to   { translate: 0 0; }
+  }
+  @keyframes t-check-draw { to { stroke-dashoffset: 0; } }
+  .contact-success .t-success-check { color: var(--blue); }
+  .contact-success .t-success-check svg { width: 64px; height: 64px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-success-check { animation: none !important; opacity: 1; }
+    .t-success-check svg path { animation: none !important; stroke-dashoffset: 0 !important; }
+  }
 
   .hero { padding: 140px 0 64px; overflow: hidden; color: white; background: linear-gradient(to bottom, transparent 0 62%, var(--paper) 62% 100%), linear-gradient(180deg, #5ca3ff 0%, #3a90ff 100%); }
   .hero-copy { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 70px; margin-bottom: 58px; }
@@ -456,13 +561,10 @@ const sceneColumns = [
   .steps-heading p { margin: 0; max-width: 520px; color: rgba(255,255,255,.86); font-size: clamp(17px, 1.2vw, 20px); line-height: 1.5; }
   .steps-heading p strong { display: block; margin-bottom: 8px; color: white; font-size: 22px; line-height: 1.15; }
   .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 45px; }
-  .step-grid article { position: relative; }
+  .step-grid article { position: relative; min-width: 0; }
   .number { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; padding: 0 0 2px; border: 2px dashed rgb(255,206,149); border-radius: 50%; color: rgb(255,206,149); font-size: 40px; font-weight: 700; line-height: 1; text-align: center; }
   .step-grid h3 { position: absolute; top: 7px; left: 80px; margin: 0; font-size: 15px; line-height: 1.2; }
-  .line-art { height: 300px; margin-top: 18px; background: var(--instructions-image) no-repeat center / 300% auto; }
-  .fold-one { background-position: left center; }
-  .fold-two { background-position: center center; }
-  .fold-three { background-position: right center; }
+  .instruction-art { display: block; width: 100%; max-width: 100%; height: auto; margin-top: 18px; object-fit: contain; }
 
   .story-sections { padding-block: 110px; }
   .story-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .86fr); align-items: center; gap: clamp(55px, 9vw, 130px); margin-bottom: 130px; }
@@ -485,26 +587,28 @@ const sceneColumns = [
   .impact-marks { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; margin-top: 26px; }
   .impact-marks img { display: block; width: auto; max-width: 152px; max-height: 58px; object-fit: contain; }
   .impact-marks img:first-child { max-height: 72px; }
-  .story-button, .price-copy a { display: inline-flex; margin-top: 9px; padding: 16px 24px; border: 2px solid var(--blue); border-radius: 10px; color: white; background: var(--blue); text-decoration: none; font-size: 20px; font-weight: 700; transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
-  .story-button:hover, .price-copy a:hover { color: var(--navy); background: white; border-color: white; transform: translateY(-4px); box-shadow: 0 8px 0 rgba(20,46,97,.18); }
-  .story-button:focus-visible, .price-copy a:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+  .story-button, .price-button { display: inline-flex; margin-top: 9px; padding: 16px 24px; border: 2px solid var(--blue); border-radius: 10px; color: white; background: var(--blue); font: inherit; font-size: 20px; font-weight: 700; cursor: pointer; transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+  .story-button:hover, .price-button:hover { color: var(--navy); background: white; border-color: white; transform: translateY(-4px); box-shadow: 0 8px 0 rgba(20,46,97,.18); }
+  .story-button:focus-visible, .price-button:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
   .price-banner { position: relative; padding-block: 116px 104px; color: white; background: var(--blue); }
   .price-banner::before { content: ''; position: absolute; top: 16px; left: 0; right: 0; border-top: 2px dashed rgba(255,255,255,.72); }
   .price-grid { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: clamp(50px, 8vw, 110px); }
   .price-media { display: block; width: 100%; height: auto; aspect-ratio: 601 / 429; object-fit: cover; border: 0; border-radius: 10px; }
   .price-copy h2 { margin: 0 0 24px; font-size: clamp(40px, 3.5vw, 56px); line-height: 1.08; letter-spacing: 0; }
-  .price-copy a { border: 2px dashed white; background: transparent; }
+  .price-button { border: 2px dashed white; background: transparent; }
   .site-footer { color: white; background: var(--navy); }
   .footer-inner { min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 24px; font-size: clamp(13px, 1vw, 16px); }
   .footer-inner a { color: var(--orange); }
   .footer-inner .brand { color: white; }
   .footer-inner .brand img { height: 46px; }
+  .footer-contact { display: inline-flex; margin-left: 12px; padding: 7px 12px; border: 1px solid var(--orange); border-radius: 8px; font-weight: 700; text-decoration: none; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .t-modal { transition: none !important; }
   }
   @media (max-width: 720px) {
+    main, .site-footer { text-align: center; }
     .shell { width: min(100% - 28px, 1360px); }
     .site-header { height: 70px; }
     .contact-panel { padding: 38px 20px 24px; }
@@ -517,13 +621,17 @@ const sceneColumns = [
     .stand { inset: 20% 10% 15%; }
     .brand-section h2 { letter-spacing: -2px; }
     .brand-notes, .step-grid { grid-template-columns: 1fr; }
-    .brand-notes { gap: 22px; }
+    .brand-notes { justify-items: center; gap: 22px; }
     .brand-notes p, .award { grid-column: 1; grid-row: auto; }
+    .award, .impact-marks { justify-content: center; }
     .step-grid { gap: 65px; }
-    .line-art { height: 230px; }
+    .step-grid article { display: flex; flex-direction: column; align-items: center; overflow: visible; }
+    .step-grid h3 { position: static; margin: 12px 0 0; }
+    .instruction-art { width: min(100%, 520px); margin-inline: auto; padding-inline: 8px; box-sizing: border-box; }
     .story-sections { padding-block: 80px; }
     .story-row, .price-grid { grid-template-columns: 1fr; gap: 45px; }
     .story-row { margin-bottom: 100px; }
+    .story-copy h2, .story-copy p { margin-inline: auto; }
     .story-row-reverse .story-copy, .story-row-reverse .story-media-frame { order: initial; }
     .price-media { height: auto; }
     .story-row:nth-child(2) .story-media-frame::before { display: none; }
