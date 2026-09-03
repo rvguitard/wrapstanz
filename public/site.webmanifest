@@ -1,0 +1,17 @@
+{
+  "name": "Wrapstanz",
+  "short_name": "Wrapstanz",
+  "description": "Foldable, recyclable branded phone stands.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffdf8",
+  "theme_color": "#5ca3ff",
+  "icons": [
+    {
+      "src": "/assets/wrapstanz/hold-the-phone.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

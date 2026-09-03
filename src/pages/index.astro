@@ -2,6 +2,19 @@
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const asset = (name) => `${base}assets/wrapstanz/${name}`;
 const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? 'https://script.google.com/macros/s/AKfycbyAedkKwDjSHifRVpMrGh0YF6jzSekGHIQhEkOzUT6kXZTljux7HMAMD8RgV40XDyf9Yw/exec';
+const siteUrl = 'https://wrapstanz.com/';
+const title = 'Wrapstanz | Branded Foldable Phone Stands';
+const description = 'Wrapstanz is a foldable, recyclable cardboard phone stand that keeps your brand in view wherever customers watch.';
+const socialImage = `${siteUrl}assets/wrapstanz/after.png`;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Wrapstanz',
+  url: siteUrl,
+  logo: `${siteUrl}assets/wrapstanz/logo.png`,
+  email: 'hello@wrapstanz.com',
+  description,
+};
 const useCases = [
   { label: 'Airplane', icon: asset('airplane.svg') },
   { label: 'Hotel room', icon: asset('hotel-room.svg') },
@@ -48,8 +61,31 @@ const sceneColumns = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Wrapstanz — a foldable, planet-friendly phone stand that puts your brand on every view." />
-    <title>Wrapstanz — Hold the phone!</title>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Wrapstanz" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#5ca3ff" />
+    <link rel="canonical" href={siteUrl} />
+    <link rel="icon" type="image/svg+xml" href={asset('hold-the-phone.svg')} />
+    <link rel="alternate icon" type="image/png" href={asset('logo.png')} />
+    <link rel="apple-touch-icon" href={asset('logo.png')} />
+    <link rel="manifest" href={`${base}site.webmanifest`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Wrapstanz" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1125" />
+    <meta property="og:image:height" content="633" />
+    <meta property="og:image:alt" content="A branded Wrapstanz foldable phone stand" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet" />
@@ -213,7 +249,7 @@ const sceneColumns = [
             <h2>What do we know?</h2>
             <p>Events are in our blood. We were key leaders in the tech event and startup space, working hundreds of large and small events.</p>
             <p>We had an idea. We know the business of events isn’t just a good time. It’s about customers, prospects, demos, keynotes, leads, results and metrics. We know that giving a customer a useful small gift leads to brand advocacy. And rewarding a prospect leads to awareness, consideration and possibly brand love. Bingo! Wrapstanz was born!</p>
-            <p>There is no more room for landfill, expensive, destructive technology giveaways. Nobody uses them or wants them. Let’s make something they want, will use and is approved by 3% of the world: recycle.</p>
+            <p>There is no more room for expensive, destructive technology giveaways that ultimately end up in landfills. If people don’t want them or use them, we’re simply creating more waste. Let’s focus on making something people actually want, will use, and can feel good about: <strong>recycling</strong>.</p>
             <p>This isn’t a premium, this is simple and makes sense. We know it.</p>
           </div>
           <div class="story-media-frame"><img class="story-media" src={asset('who-we-are.png')} alt="A grid of event cards displayed outdoors" loading="lazy" /></div>
